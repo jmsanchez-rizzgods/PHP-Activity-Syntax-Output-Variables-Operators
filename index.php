@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Calculator UI</title>
+    <style>
+        body { background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }
+        
+        /* Main Body ng Calculator */
+        .calculator {
+            background-color: #3b4664;
+            padding: 25px;
+            border-radius: 12px;
+            width: 320px;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Screen Display */
+        #display {
+            width: 100%;
+            height: 60px;
+            background-color: #a3b18a; /* Greenish screen */
+            border: 4px inset #588157;
+            margin-bottom: 25px;
+            text-align: right;
+            font-size: 2rem;
+            padding: 10px;
+            box-sizing: border-box;
+            color: #1b4332;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        /* Grid Layout para sa Buttons */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            height: 55px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #eae3dc;
+            color: #444b5a;
+            transition: 0.1s;
+        }
+
+        button:active { transform: scale(0.95); background-color: #ccc; }
+
+        /* Equal Button Design */
+        .equal {
+            background-color: #f0595f; /* Red/Orange */
+            color: white;
+            grid-row: span 2; /* Mahaba pababa */
+            height: 122px;
+        }
+
+        .op { background-color: #e5e4e1; }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" readonly value="0">
+    
+    <div class="buttons">
+        <button onclick="clearDisplay()">AC</button>
+        <button>M+</button>
+        <button class="op" onclick="press('/')">/</button>
+        <button class="op" onclick="press('*')">X</button>
+        
+        <button onclick="press('7')">7</button>
+        <button onclick="press('8')">8</button>
+        <button onclick="press('9')">9</button>
+        <button class="op" onclick="press('-')">-</button>
+        
+        <button onclick="press('4')">4</button>
+        <button onclick="press('2')">2</button> <button onclick="press('6')">6</button>
+        <button class="op" onclick="press('+')">+</button>
+        
+        <button onclick="press('1')">1</button>
+        <button onclick="press('5')">5</button>
+        <button onclick="press('3')">3</button>
+        <button class="equal" onclick="solve()">=</button>
+        
+        <button onclick="press('0')">0</button>
+        <button onclick="press('.')">.</button>
+        <button onclick="press('%')">%</button>
+    </div>
+</div>
+
+<script>
+    let screen = document.getElementById('display');
+
+    function press(val) {
+        if (screen.value === "0") screen.value = val;
+        else screen.value += val;
+    }
+
+    function clearDisplay() {
+        screen.value = "0";
+    }
+
+    function solve() {
+        try {
+            // Gagamit ng eval para sa instant computation
+            screen.value = eval(screen.value);
+        } catch(e) {
+            screen.value = "Error";
+        }
+    }
+</script>
+
+</body>
+</html>
